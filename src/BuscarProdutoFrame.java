@@ -11,10 +11,10 @@ public class BuscarProdutoFrame extends JFrame {
         setLayout(new BorderLayout());
 
         JTextField nomeField = new JTextField();
-        JButton buscarButton = new JButton("Buscar");
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
+        JButton buscarButton = new JButton("Buscar");
 
         buscarButton.addActionListener(new ActionListener() {
             @Override
@@ -37,8 +37,8 @@ public class BuscarProdutoFrame extends JFrame {
         });
 
         add(nomeField, BorderLayout.NORTH);
-        add(buscarButton, BorderLayout.CENTER);
-        add(scrollPane, BorderLayout.SOUTH);
+        add(scrollPane, BorderLayout.CENTER);
+        add(buscarButton, BorderLayout.SOUTH);
 
         setVisible(true);
     }
