@@ -2,6 +2,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.SwingUtilities;
 public class Main {
     static ArrayList<Produto> estoque = new ArrayList<>();
     static ArrayList<Fabrica> fabricas = new ArrayList<>();
+    static ArrayList<Fornecedor> fornecedores = new ArrayList<>();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -31,6 +33,12 @@ public class Main {
             JButton alterarFabricasButton = new JButton("Alterar Fabricas");
             JButton buscarFabricasButton = new JButton("Buscar Fabricas");
 
+            JButton criarFornecedorButton = new JButton("Criar Forncecedor");
+            JButton listarFornecedorButton = new JButton("Listar Forncecedores");
+            JButton deletarFornecedorButton = new JButton("Deletar Forncecedor");
+            JButton alterarFornecedorButton = new JButton("Alterar Forncecedor");
+            JButton buscarFornecedorButton = new JButton("Buscar Forncecedores");
+
             JButton shutdownButton = new JButton("Sair do Sistema");
 
             listarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -40,6 +48,16 @@ public class Main {
             buscarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
             criarFabricaButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            listarFabricasButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            deletarFabricasButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            alterarFabricasButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            buscarFabricasButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+
+            criarFornecedorButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            listarFornecedorButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            deletarFornecedorButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            alterarFornecedorButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            buscarFornecedorButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
             shutdownButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
@@ -50,11 +68,17 @@ public class Main {
             alterarButton.setMargin(buttonMargin);
             buscarButton.setMargin(buttonMargin);
             
-            listarFabricasButton.setMargin(buttonMargin);
             criarFabricaButton.setMargin(buttonMargin);
+            listarFabricasButton.setMargin(buttonMargin);
             deletarFabricasButton.setMargin(buttonMargin);
             alterarFabricasButton.setMargin(buttonMargin);
             buscarFabricasButton.setMargin(buttonMargin);
+
+            criarFornecedorButton.setMargin(buttonMargin);
+            listarFornecedorButton.setMargin(buttonMargin);
+            deletarFornecedorButton.setMargin(buttonMargin);
+            alterarFornecedorButton.setMargin(buttonMargin);
+            buscarFornecedorButton.setMargin(buttonMargin);
 
             shutdownButton.setMargin(buttonMargin);
 
@@ -123,6 +147,37 @@ public class Main {
             alterarFabricasButton.addActionListener(fabricaCheckListener);
             buscarFabricasButton.addActionListener(fabricaCheckListener);
 
+            criarFornecedorButton.addActionListener(e -> {
+                JFrame criarFabricaFrame = new CriarFornecedorFrame();
+                criarFabricaFrame.setVisible(true);
+            });
+
+            ActionListener fornecedorCheckListener = e -> {
+                if (fabricas.isEmpty()) {
+                    JOptionPane.showMessageDialog(mainFrame, "Não existem fornecedores! Por favor crie um.");
+                } else {
+                    JButton sourceButton = (JButton) e.getSource();
+                    JFrame targetFrame = null;
+                    if (sourceButton == listarFornecedorButton) {
+                        targetFrame = new ListarFornecedorFrame();
+                    } else if (sourceButton == deletarFornecedorButton) {
+                        targetFrame = new DeletarFornecedorFrame();
+                    } else if (sourceButton == alterarFornecedorButton) {
+                        targetFrame = new AlterarFornecedorFrame();
+                    } else if (sourceButton == buscarFornecedorButton) {
+                        targetFrame = new BuscarFornecedorFrame();
+                    }
+                    if (targetFrame != null) {
+                        targetFrame.setVisible(true);
+                    }
+                }
+            };
+
+            listarFornecedorButton.addActionListener(fornecedorCheckListener);
+            deletarFornecedorButton.addActionListener(fornecedorCheckListener);
+            alterarFornecedorButton.addActionListener(fornecedorCheckListener);
+            buscarFornecedorButton.addActionListener(fornecedorCheckListener);
+
             shutdownButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -135,11 +190,19 @@ public class Main {
             mainFrame.add(deletarButton);
             mainFrame.add(alterarButton);
             mainFrame.add(buscarButton);
+
             mainFrame.add(criarFabricaButton);
             mainFrame.add(listarFabricasButton);
             mainFrame.add(deletarFabricasButton);
             mainFrame.add(alterarFabricasButton);
             mainFrame.add(buscarFabricasButton);
+
+            mainFrame.add(criarFornecedorButton);
+            mainFrame.add(listarFornecedorButton);
+            mainFrame.add(deletarFornecedorButton);
+            mainFrame.add(alterarFornecedorButton);
+            mainFrame.add(buscarFornecedorButton);
+
             mainFrame.add(shutdownButton);
 
             mainFrame.setVisible(true);

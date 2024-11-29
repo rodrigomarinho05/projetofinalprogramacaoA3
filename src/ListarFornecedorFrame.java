@@ -3,9 +3,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class ListarFabricasFrame extends JFrame {
-    public ListarFabricasFrame() {
-        setTitle("Listar Fabricas");
+public class ListarFornecedorFrame extends JFrame {
+    public ListarFornecedorFrame() {
+        setTitle("Listar Fornecedores");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -14,11 +14,11 @@ public class ListarFabricasFrame extends JFrame {
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
-        if (Main.fabricas.isEmpty()) {
-            textArea.setText("Não existem fabricas.");
+        if (Main.fornecedores.isEmpty()) {
+            textArea.setText("Não existem fornecedores.");
         } else {
-            for (Fabrica fabrica : Main.fabricas) {
-                textArea.append(fabrica.getNome() + "\n");
+            for (Fornecedor fornecedor : Main.fornecedores) {
+                textArea.append(fornecedor.getNome() + "\n");
             }
         }
 
