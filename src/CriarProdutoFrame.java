@@ -39,7 +39,7 @@ public class CriarProdutoFrame extends JFrame {
                 double preco = Double.parseDouble(precoField.getText());
 
                 Produto novoProduto = new Peca(nome, descricao, marca, modelo, ano, preco);
-                SecondMain.estoque.add(novoProduto);
+                Main.estoque.add(novoProduto);
                 JOptionPane.showMessageDialog(null, "Produto criado com sucesso!");
                 dispose();
             }

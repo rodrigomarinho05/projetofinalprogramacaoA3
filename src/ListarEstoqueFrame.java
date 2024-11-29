@@ -14,10 +14,10 @@ public class ListarEstoqueFrame extends JFrame {
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
-        if (SecondMain.estoque.isEmpty()) {
+        if (Main.estoque.isEmpty()) {
             textArea.setText("O estoque está vazio.");
         } else {
-            for (Produto produto : SecondMain.estoque) {
+            for (Produto produto : Main.estoque) {
                 textArea.append(produto.toString() + "\n");
             }
         }

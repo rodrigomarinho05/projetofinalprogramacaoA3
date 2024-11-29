@@ -1,173 +1,94 @@
-// import java.util.ArrayList;
-// import java.util.Scanner;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
-// public class Main {
-//     static ArrayList<Produto> estoque = new ArrayList<>();
-//     public static void main(String[] args) {
-//         Scanner scanner = new Scanner(System.in, "UTF-8");
+public class Main {
+    static ArrayList<Produto> estoque = new ArrayList<>();
 
-//         int opcao = -1;
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame mainFrame = new JFrame("Menu Principal");
+            mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainFrame.setSize(300, 200);
+            mainFrame.setLayout(new BoxLayout(mainFrame.getContentPane(), BoxLayout.Y_AXIS));
 
-//         do {
-//             System.out.println("\nMenu:");
-//             System.out.println("\n1. Listar estoque");
-//             System.out.println("2. Criar produto");
-//             System.out.println("3. Deletar produto");
-//             System.out.println("4. Alterar produto");
-//             System.out.println("5. Buscar produto");
-//             System.out.println("0. Sair");
-//             System.out.print("\nDigite uma opção: ");
-    
-//             if (scanner.hasNextInt()) {
-//                 opcao = scanner.nextInt();
-//                 scanner.nextLine();
-    
-//                 switch (opcao) {
-//                     case 1 -> listarEstoque();
-//                     case 2 -> criarProduto(scanner);
-//                     case 3 -> deletarProduto(scanner);
-//                     case 4 -> alterarProduto(scanner);
-//                     case 5 -> buscarProduto(scanner);
-//                     case 0 -> sairDoSistema();
-//                     default -> System.out.println("\nOpcao invalida! Escolha um numero entre 0 e 5.");
-//                 }
-//             } else {
-//                 System.out.println("Entrada invalida! Por favor, insira apenas numeros.");
-//                 scanner.nextLine();
-//             }
-//         } while (opcao != 0);
-//     }
-    
-//     private static void listarEstoque() {
-//         if (estoque.isEmpty()) {
-//             System.out.println("\nO estoque esta vazio. Nao ha produtos para listar.");
-//             return;
-//         }
+            JButton listarButton = new JButton("Listar Estoque");
+            JButton criarButton = new JButton("Criar Produto");
+            JButton deletarButton = new JButton("Deletar Produto");
+            JButton alterarButton = new JButton("Alterar Produto");
+            JButton buscarButton = new JButton("Buscar Produto");
+            JButton shutdownButton = new JButton("Sair do Sistema");
 
-//         for (int i = 0; i < estoque.size(); i++) {
-//             Produto produto = estoque.get(i);
-//             System.out.println("Indice: " + i);
-//             System.out.println("\nNome: " + produto.getNome());
-//             System.out.println("Descricao: " + produto.getDescricao());
-//             System.out.println("Marca: " + produto.getMarca());
-//             System.out.println("Modelo: " + produto.getModelo());
-//             System.out.println("Ano: " + produto.getAno());
-//             System.out.println("Preco: R$ " + produto.getPreco());
-//             System.out.println("\n------------------------");
-    
-//         }
-//     }
+            listarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            criarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            deletarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            alterarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            buscarButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+            shutdownButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
 
-//     private static void criarProduto(Scanner scanner) {
-//         System.out.print("\nDigite o nome do produto: ");
-//         String nome = scanner.nextLine();
+            Insets buttonMargin = new Insets(10, 20, 10, 20);
+            listarButton.setMargin(buttonMargin);
+            criarButton.setMargin(buttonMargin);
+            deletarButton.setMargin(buttonMargin);
+            alterarButton.setMargin(buttonMargin);
+            buscarButton.setMargin(buttonMargin);
+            shutdownButton.setMargin(buttonMargin);
 
-//         System.out.print("Escreva a descricao do produto: ");
-//         String descricao = scanner.nextLine();
+            ActionListener estoqueCheckListener = e -> {
+                if (estoque.isEmpty()) {
+                    JOptionPane.showMessageDialog(mainFrame, "Estoque está vazio! Por favor crie um produto.");
+                } else {
+                    JButton sourceButton = (JButton) e.getSource();
+                    JFrame targetFrame = null;
+                    if (sourceButton == listarButton) {
+                        targetFrame = new ListarEstoqueFrame();
+                    } else if (sourceButton == deletarButton) {
+                        targetFrame = new DeletarProdutoFrame();
+                    } else if (sourceButton == alterarButton) {
+                        targetFrame = new AlterarProdutoFrame();
+                    } else if (sourceButton == buscarButton) {
+                        targetFrame = new BuscarProdutoFrame();
+                    }
+                    if (targetFrame != null) {
+                        targetFrame.setVisible(true);
+                    }
+                }
+            };
 
-//         System.out.print("Qual a marca do produto: ");
-//         String marca = scanner.nextLine();
+            listarButton.addActionListener(estoqueCheckListener);
+            deletarButton.addActionListener(estoqueCheckListener);
+            alterarButton.addActionListener(estoqueCheckListener);
+            buscarButton.addActionListener(estoqueCheckListener);
 
-//         System.out.print("Qual o modelo do produto: ");
-//         String modelo = scanner.nextLine();
-        
-//         System.out.print("Qual o ano de fabricacao do produto: ");
-//         int ano = scanner.nextInt();
+            criarButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFrame criarProdutoFrame = new CriarProdutoFrame();
+                    criarProdutoFrame.setVisible(true);
+                }
+            });
 
-//         System.out.print("Qual o preco do produto: ");
-//         double preco = scanner.nextDouble();
+            shutdownButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    System.exit(0);
+                }
+            });
 
-//         Peca novaPeca = new Peca(nome, descricao, marca, modelo, ano, preco);
-    
-//         estoque.add(novaPeca);
-//         System.out.println("\nProduto criado com sucesso!");
-//     }
+            mainFrame.add(listarButton);
+            mainFrame.add(criarButton);
+            mainFrame.add(deletarButton);
+            mainFrame.add(alterarButton);
+            mainFrame.add(buscarButton);
+            mainFrame.add(shutdownButton);
 
-//     private static void deletarProduto(Scanner scanner) {
-//         if (estoque.isEmpty()) {
-//             System.out.println("\nO estoque esta vazio. Nao ha produtos para deletar.");
-//             return;
-//         }
-    
-//         listarEstoque();
-    
-//         System.out.println("\nDigite o indice do produto que deseja deletar (comeca em 0): ");
-//         int indice = scanner.nextInt();
-//         scanner.nextLine();
-    
-//         if (indice >= 0 && indice < estoque.size()) {
-//             Produto produtoRemovido = estoque.remove(indice);
-//             System.out.println("\nProduto removido com sucesso: " + produtoRemovido.getNome());
-//         } else {
-//             System.out.println("\nIndice invalido. Operacao cancelada.");
-//         }
-//     }
-
-//     private static void sairDoSistema() {
-//         System.out.println("Encerrando o sistema...");
-//         System.exit(0);
-//     }
-
-//     private static void alterarProduto(Scanner scanner) {
-//         if (estoque.isEmpty()) {
-//             System.out.println("O estoque esta vazio. Nao ha produtos para alterar.");
-//             return;
-//         }
-    
-//         listarEstoque();
-    
-//         System.out.println("Digite o indice do produto que deseja alterar (comeca em 0): ");
-//         int indice = scanner.nextInt();
-//         scanner.nextLine();
-    
-//         if (indice >= 0 && indice < estoque.size()) {
-//             Produto produto = estoque.get(indice);
-    
-//             System.out.println("Alterando o produto: " + produto.getNome());
-//             System.out.print("Digite o novo nome (ou pressione Enter para manter '" + produto.getNome() + "'): ");
-//             String nome = scanner.nextLine();
-//             if (!nome.isEmpty()) produto.setNome(nome);
-    
-//             System.out.print("Digite a nova descricao (ou pressione Enter para manter '" + produto.getDescricao() + "'): ");
-//             String descricao = scanner.nextLine();
-//             if (!descricao.isEmpty()) produto.setDescricao(descricao);
-    
-//             System.out.print("Digite a nova marca (ou pressione Enter para manter '" + produto.getMarca() + "'): ");
-//             String marca = scanner.nextLine();
-//             if (!marca.isEmpty()) produto.setMarca(marca);
-    
-//             System.out.print("Digite o novo modelo (ou pressione Enter para manter '" + produto.getModelo() + "'): ");
-//             String modelo = scanner.nextLine();
-//             if (!modelo.isEmpty()) produto.setModelo(modelo);
-    
-//             System.out.print("Digite o novo ano (ou pressione Enter para manter '" + produto.getAno() + "'): ");
-//             String anoInput = scanner.nextLine();
-//             if (!anoInput.isEmpty()) produto.setAno(Integer.parseInt(anoInput));
-    
-//             System.out.print("Digite o novo preco (ou pressione Enter para manter 'R$" + produto.getPreco() + "'): ");
-//             String precoInput = scanner.nextLine();
-//             if (!precoInput.isEmpty()) produto.setPreco(Double.parseDouble(precoInput));
-    
-//             System.out.println("Produto alterado com sucesso!");
-//         } else {
-//             System.out.println("Indice invalido. Operacao cancelada.");
-//         }
-//     }
-
-//     private static void buscarProduto(Scanner scanner) {
-//         System.out.print("Digite o nome do produto a ser buscado: ");
-//         String nome = scanner.nextLine();
-//         boolean encontrado = false;
-
-//         for (Produto produto : estoque) {
-//             if (produto.getNome().equalsIgnoreCase(nome)) {
-//                 System.out.println(produto.getNome());
-//                 encontrado = true;
-//             }
-//         }
-
-//         if (!encontrado) {
-//             System.out.println("Produto nao encontrado.");
-//         }
-//     }
-// }
+            mainFrame.setVisible(true);
+        });
+    }
+}

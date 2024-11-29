@@ -19,11 +19,11 @@ public class DeletarProdutoFrame extends JFrame {
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
-        if (SecondMain.estoque.isEmpty()) {
+        if (Main.estoque.isEmpty()) {
             textArea.setText("O estoque está vazio.");
         } else {
-            for (int i = 0; i < SecondMain.estoque.size(); i++) {
-                textArea.append("Índice: " + i + " - " + SecondMain.estoque.get(i).toString() + "\n");
+            for (int i = 0; i < Main.estoque.size(); i++) {
+                textArea.append("Índice: " + i + " - " + Main.estoque.get(i).toString() + "\n");
             }
         }
 
@@ -34,8 +34,8 @@ public class DeletarProdutoFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int indice = Integer.parseInt(indiceField.getText());
-                if (indice >= 0 && indice < SecondMain.estoque.size()) {
-                    SecondMain.estoque.remove(indice);
+                if (indice >= 0 && indice < Main.estoque.size()) {
+                    Main.estoque.remove(indice);
                     JOptionPane.showMessageDialog(null, "Produto deletado com sucesso!");
                     dispose();
                 } else {

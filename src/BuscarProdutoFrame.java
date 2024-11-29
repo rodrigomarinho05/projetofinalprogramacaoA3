@@ -1,5 +1,4 @@
 import java.awt.BorderLayout;
-
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
@@ -26,7 +25,7 @@ public class BuscarProdutoFrame extends JFrame {
             boolean encontrado = false;
             StringBuilder result = new StringBuilder("<html><body>");
 
-            for (Produto produto : SecondMain.estoque) {
+            for (Produto produto : Main.estoque) {
                 if (produto.getNome().toLowerCase().contains(nome)) {
                     result.append("<p>").append(produto.toString()).append("</p>\n");
                     encontrado = true;
