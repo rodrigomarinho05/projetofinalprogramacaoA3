@@ -1,7 +1,11 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class CriarProdutoFrame extends JFrame {
     public CriarProdutoFrame() {
@@ -35,7 +39,7 @@ public class CriarProdutoFrame extends JFrame {
                 double preco = Double.parseDouble(precoField.getText());
 
                 Produto novoProduto = new Peca(nome, descricao, marca, modelo, ano, preco);
-                Main.estoque.add(novoProduto);
+                SecondMain.estoque.add(novoProduto);
                 JOptionPane.showMessageDialog(null, "Produto criado com sucesso!");
                 dispose();
             }

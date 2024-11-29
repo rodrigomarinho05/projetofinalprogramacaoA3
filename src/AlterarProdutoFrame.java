@@ -1,7 +1,15 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class AlterarProdutoFrame extends JFrame {
     public AlterarProdutoFrame() {
@@ -14,11 +22,11 @@ public class AlterarProdutoFrame extends JFrame {
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
-        if (Main.estoque.isEmpty()) {
+        if (SecondMain.estoque.isEmpty()) {
             textArea.setText("O estoque está vazio.");
         } else {
-            for (int i = 0; i < Main.estoque.size(); i++) {
-                textArea.append("Índice: " + i + " - " + Main.estoque.get(i).toString() + "\n");
+            for (int i = 0; i < SecondMain.estoque.size(); i++) {
+                textArea.append("Índice: " + i + " - " + SecondMain.estoque.get(i).toString() + "\n");
             }
         }
 
@@ -29,8 +37,8 @@ public class AlterarProdutoFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int indice = Integer.parseInt(indiceField.getText());
-                if (indice >= 0 && indice < Main.estoque.size()) {
-                    Produto produto = Main.estoque.get(indice);
+                if (indice >= 0 && indice < SecondMain.estoque.size()) {
+                    Produto produto = SecondMain.estoque.get(indice);
 
                     JTextField nomeField = new JTextField(produto.getNome());
                     JTextField descricaoField = new JTextField(produto.getDescricao());

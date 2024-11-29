@@ -1,5 +1,7 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ListarEstoqueFrame extends JFrame {
     public ListarEstoqueFrame() {
@@ -12,10 +14,10 @@ public class ListarEstoqueFrame extends JFrame {
         textArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(textArea);
 
-        if (Main.estoque.isEmpty()) {
+        if (SecondMain.estoque.isEmpty()) {
             textArea.setText("O estoque está vazio.");
         } else {
-            for (Produto produto : Main.estoque) {
+            for (Produto produto : SecondMain.estoque) {
                 textArea.append(produto.toString() + "\n");
             }
         }
